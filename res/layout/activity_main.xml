@@ -1,0 +1,52 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="miui用户请去  安全中心  --授权管理 --自启动管理  中允许 疯狂抢红包BY Young 自动启动，否则可能因内存不足导致应用被杀死\nps: 收到红包后会自动返回桌面\n该APP适用于微信6.2.4"
+            android:textColor="#000" />
+
+        
+        <Button
+            android:id="@+id/qidong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000" 
+            android:layout_marginBottom="20dp"/>
+
+        
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="#000" />
+        
+        <ImageView
+            
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img2" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img1" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img3" />
+    </LinearLayout>
+
+</ScrollView>
