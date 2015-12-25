@@ -1,52 +1,77 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:background="@drawable/main_bg" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.xun.qianfanhongbao.view.BouncyBtnView
+        android:id="@+id/start_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:layout_centerInParent="true" >
+    </com.xun.qianfanhongbao.view.BouncyBtnView>
+
+    <TextView
+        android:id="@+id/tips"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp" >
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:text="好了，保持我在后台运行就可以帮您自动抢红包了噢！确保发红包微信群的“消息免打扰”处于关闭状态噢！"
+        android:textColor="#f1e57c"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" >
 
         <TextView
-            android:id="@+id/tip"
+            android:id="@+id/sub_btn_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="miui用户请去  安全中心  --授权管理 --自启动管理  中允许 疯狂抢红包BY Young 自动启动，否则可能因内存不足导致应用被杀死\nps: 收到红包后会自动返回桌面\n该APP适用于微信6.2.4"
-            android:textColor="#000" />
+            android:background="@drawable/subbtn_bg_selector"
+            android:gravity="center"
+            android:text="查看教程"
+            android:textColor="#df002c" />
 
-        
-        <Button
-            android:id="@+id/qidong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000" 
-            android:layout_marginBottom="20dp"/>
-
-        
         <TextView
-            android:id="@+id/info"
+            android:id="@+id/sub_btn_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColor="#000" />
-        
-        <ImageView
-            
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img2" />
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/sub_btn_1"
+            android:background="@drawable/subbtn_bg_selector"
+            android:gravity="center"
+            android:text="打赏攒人品"
+            android:textColor="#df002c" />
 
-        <ImageView
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/sub_btn_3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/img1" />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img3" />
-    </LinearLayout>
+            android:layout_below="@+id/sub_btn_1"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/subbtn_bg_selector"
+            android:gravity="center"
+            android:text="千帆软件推荐"
+            android:textColor="#df002c" />
 
-</ScrollView>
+        <TextView
+            android:id="@+id/sub_btn_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sub_btn_2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/sub_btn_3"
+            android:background="@drawable/subbtn_bg_selector"
+            android:gravity="center"
+            android:text="关于本软件"
+            android:textColor="#df002c" />
+    </RelativeLayout>
+
+</RelativeLayout>

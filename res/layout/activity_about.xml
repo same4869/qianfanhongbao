@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#df002c" >
+
+    <RelativeLayout
+        android:id="@+id/Linear_above_toHome"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#df002c"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/imageview_above_menu_teacher"
+            style="@style/title_right_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tv_above_title_teacher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="关于本软件"
+            android:textColor="#fff"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Linear_above_toHome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_name"
+        android:textColor="#f1e57c"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/version_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="version 1.0"
+        android:textColor="#f1e57c" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/copyright"
+        android:layout_below="@+id/version_name"
+        android:layout_margin="5dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="使用条款（必读）"
+                android:textColor="#f1e57c"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="1.本软件承诺绝无广告，无后门，无用户隐私监控，请用户放心使用。\n2.请用户尽量下载官方版本，如有第三方破解本软件后插入木马，广告等所造成的损失本软件开发者具有免责权利。\n3.如有任何问题，也可以通过下面的email联系开发者。\n4.Good Luck!"
+                android:textColor="#f1e57c"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/about_author"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:text="Email:same4869@126.com"
+        android:textColor="#f1e57c" />
+
+    <TextView
+        android:id="@+id/about_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="Copyright Xwang.All Rights Reserved"
+        android:textColor="#f1e57c"
+        android:textSize="14sp" />
+
+</RelativeLayout>

@@ -14,11 +14,28 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="567d070367e58e2c9f0029e2" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="common" />
+
         <activity
             android:name="com.xun.qianfanhongbao.ui.HongBaoMainActivity"
             android:label="@string/app_name" >
@@ -27,6 +44,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xun.qianfanhongbao.ui.CourseActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.xun.qianfanhongbao.ui.AboutActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
 
         <service
@@ -58,6 +83,16 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

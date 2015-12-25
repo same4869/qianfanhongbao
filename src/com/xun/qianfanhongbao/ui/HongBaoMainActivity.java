@@ -1,25 +1,24 @@
 package com.xun.qianfanhongbao.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xun.qianfanhongbao.R;
 import com.xun.qianfanhongbao.service.HookService;
+import com.xun.qianfanhongbao.view.BouncyBtnView;
 
-public class HongBaoMainActivity extends Activity {
-
-	Button qidong;
-	TextView info;
+public class HongBaoMainActivity extends BaseActivity implements OnClickListener {
+	private BouncyBtnView bouncyBtnView;
+	private TextView tipsTv;
+	private TextView courseTv, aboutTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,30 +27,37 @@ public class HongBaoMainActivity extends Activity {
 
 		startService(new Intent(getApplicationContext(), HookService.class));
 
-		qidong = (Button) findViewById(R.id.qidong);
-		info = (TextView) findViewById(R.id.info);
-		qidong.setOnClickListener(new OnClickListener() {
+		initView();
+	}
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "请开启  疯狂抢红包BY Young", 1).show();
-				startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
-			}
-		});
+	private void initView() {
+		bouncyBtnView = (BouncyBtnView) findViewById(R.id.start_btn);
+		bouncyBtnView.setOnClickListener(this);
+		bouncyBtnView.setVisibility(View.INVISIBLE);
+
+		tipsTv = (TextView) findViewById(R.id.tips);
+		courseTv = (TextView) findViewById(R.id.sub_btn_1);
+		courseTv.setOnClickListener(this);
+		aboutTv = (TextView) findViewById(R.id.sub_btn_4);
+		aboutTv.setOnClickListener(this);
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
-
 		if (isAccessibilitySettingsOn(getApplicationContext())) {
-			qidong.setText("已启动  疯狂抢红包BY Young");
-			info.setText("已开启自动抢红包模式，您可以后台运行该APP，同时开启 微信接收新消息通知,并后台运行微信,同时屏幕保持常亮");
+			tipsTv.setVisibility(View.VISIBLE);
+			bouncyBtnView.setVisibility(View.INVISIBLE);
 		} else {
-			info.setText("");
-			qidong.setText("点击开启   疯狂抢红包BY Young");
+			tipsTv.setVisibility(View.INVISIBLE);
+			new Handler().postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					bouncyBtnView.setVisibility(View.VISIBLE);
+					bouncyBtnView.popAnimation(true);
+				}
+			}, 300);
 		}
 	}
 
@@ -64,6 +70,7 @@ public class HongBaoMainActivity extends Activity {
 			accessibilityEnabled = Settings.Secure.getInt(context.getApplicationContext().getContentResolver(),
 					android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
 		} catch (SettingNotFoundException e) {
+			e.printStackTrace();
 		}
 		TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
 		if (accessibilityEnabled == 1) {
@@ -86,4 +93,23 @@ public class HongBaoMainActivity extends Activity {
 		return accessibilityFound;
 	}
 
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.start_btn:
+			startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+			break;
+		case R.id.sub_btn_1:
+			Intent courseIntent = new Intent(HongBaoMainActivity.this, CourseActivity.class);
+			startActivity(courseIntent);
+			break;
+		case R.id.sub_btn_4:
+			Intent aboutIntent = new Intent(HongBaoMainActivity.this, AboutActivity.class);
+			startActivity(aboutIntent);
+			break;
+		default:
+			break;
+		}
+
+	}
 }

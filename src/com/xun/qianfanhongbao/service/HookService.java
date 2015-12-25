@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -110,27 +109,11 @@ public class HookService extends AccessibilityService {
 					parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 					Rect rect = new Rect();
 					parent.getBoundsInScreen(rect);
-					Log.d("kkkkkkkk", " rect.centerX() --> " + rect.centerX() + " rect.centerY() --> " + rect.centerY());
 					while (parent.getParent() != null) {
 						parent = parent.getParent();
 						parent.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 					}
 
-					// List<AccessibilityNodeInfo> list2 = nodeInfo.findAccessibilityNodeInfosByText("领取红包"); // 获取包含 拆红包
-					// // 文字的控件，模拟点击事件，拆开红包
-					// for (AccessibilityNodeInfo n : list2) {
-					// n.performAction(AccessibilityNodeInfo.ACTION_CLICK);
-					// }
-					// Rect rect2 = new Rect();
-					// parent.getBoundsInScreen(rect2);
-					// Log.d("kkkkkkkk", " rect2.centerX() --> " + rect2.centerX() + " rect2.centerY() --> " + rect2.centerY());
-					//
-					// // 可以不用在 Activity 中增加任何处理，各 Activity 都可以响应
-					// Instrumentation inst = new Instrumentation();
-					// inst.sendPointerSync(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, rect2.centerX(),
-					// rect2.centerY(), 0));
-					// inst.sendPointerSync(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, rect2.centerX(),
-					// rect2.centerY(), 0));
 					return;
 				} catch (Exception e) {
 
@@ -141,7 +124,7 @@ public class HookService extends AccessibilityService {
 		}
 
 	}
-	
+
 	private void unlockScreen() {
 		KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 		final KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock("MyKeyguardLock");
