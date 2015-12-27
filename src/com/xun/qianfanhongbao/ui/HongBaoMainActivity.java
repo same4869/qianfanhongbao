@@ -7,9 +7,11 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xun.qianfanhongbao.R;
 import com.xun.qianfanhongbao.service.HookService;
@@ -19,6 +21,8 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 	private BouncyBtnView bouncyBtnView;
 	private TextView tipsTv;
 	private TextView courseTv, aboutTv;
+
+	private Boolean is2CallBack = false;// 是否双击退出
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 	}
 
 	private void initView() {
+		isShowBackBtn(false);
+		setActionBarTitle("千帆抢红包");
 		bouncyBtnView = (BouncyBtnView) findViewById(R.id.start_btn);
 		bouncyBtnView.setOnClickListener(this);
 		bouncyBtnView.setVisibility(View.INVISIBLE);
@@ -111,5 +117,26 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 			break;
 		}
 
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (!is2CallBack) {
+				is2CallBack = true;
+				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+				new Handler().postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						is2CallBack = false;
+					}
+				}, 2500);
+
+			} else {
+				android.os.Process.killProcess(android.os.Process.myPid());
+			}
+		}
+		return true;
 	}
 }
