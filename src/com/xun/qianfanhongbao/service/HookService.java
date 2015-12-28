@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import cn.bmob.v3.listener.SaveListener;
@@ -32,8 +31,6 @@ public class HookService extends AccessibilityService {
 	public void onAccessibilityEvent(AccessibilityEvent event) {
 		if (event == null)
 			return;
-
-		Log.d("kkkkkkkk", "event.getEventType() --> " + event.getEventType());
 
 		if (event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
 			unlockScreen();
