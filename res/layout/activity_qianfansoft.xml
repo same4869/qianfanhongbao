@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/zhichelogo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/icon168" />
+
+        <TextView
+            android:id="@+id/zhichename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhichelogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:text="千帆知车"
+            android:textColor="#333333"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/zhichetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhichename"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:layout_marginTop="6dp"
+            android:text="千帆知车-----打造有亲和力的知车社区\n这是一款普及汽车知识，汽车分享的社区平台，应用具有汽车品牌，汽车社区，汽车相关工具，相关视频，用户中心等目前主流社交软件的功能，号召全民知车，全民懂车。\n你可以在这里看到权威网站的汽车分类讲解，报价，视频等\n你可以在这里分享所有你想分享的关于汽车的知识与心得。\n你可以在这里围观大神们对汽车的独到见解。\n你可以在这里找到千帆问答问问你想这知道的方方面面。\n你还可以。。。\n目前还在不断扩展中，将来还将具备即时聊天，智能扫描识别车标等等高级功能。\n千帆问答来袭，千帆冷冷驾到，她是无所不知的软妹纸，你可以问各种汽车知识，或者其他，当然作为一个妹纸当然也不会知道太多，或者懒得多说，赶紧捧回去吧。"
+            android:textColor="#666666"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/zhicheImg1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhichetext"
+            android:layout_margin="5dp"
+            android:src="@drawable/img6" />
+
+        <ImageView
+            android:id="@+id/zhicheImg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhicheImg1"
+            android:layout_margin="5dp"
+            android:src="@drawable/img7" />
+
+        <ImageView
+            android:id="@+id/zhicheImg3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhicheImg2"
+            android:layout_margin="5dp"
+            android:src="@drawable/img8" />
+
+        <ImageView
+            android:id="@+id/zhicheImg4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhicheImg3"
+            android:layout_margin="5dp"
+            android:src="@drawable/img4" />
+
+        <ImageView
+            android:id="@+id/zhicheImg5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhicheImg4"
+            android:layout_margin="5dp"
+            android:src="@drawable/img5" />
+
+        <TextView
+            android:id="@+id/download_guanwang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zhicheImg5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="点击官方下载"
+            android:textColor="#33bbff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/download_wandoujia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/download_guanwang"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="点击去豌豆荚下载"
+            android:textColor="#33bbff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/download_360"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/download_wandoujia"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="点击去360下载"
+            android:textColor="#33bbff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</ScrollView>

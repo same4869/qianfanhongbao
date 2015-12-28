@@ -2,6 +2,9 @@ package com.xun.qianfanhongbao.app;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import cn.bmob.v3.Bmob;
+
+import com.xun.qianfanhongbao.common.Constant;
 
 public class HongBaoApp extends Application {
 	private static HongBaoApp mApplication = null;
@@ -17,7 +20,7 @@ public class HongBaoApp extends Application {
 			System.exit(-1);
 			return;
 		}
-
+		Bmob.initialize(getApplicationContext(), Constant.BMOB_APP_ID);
 		mApplication = this;
 		// setConstants();
 		// getConstants();

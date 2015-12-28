@@ -19,6 +19,17 @@
 #   public *;
 #}
 
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontskipnonpubliclibraryclassmembers
+-dontpreverify
+-ignorewarnings
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-libraryjars libs
+-keepattributes Exceptions, Signature, InnerClasses
+
 -keep public class com.xun.qianfanhongbao.R$*{
     public static final int *;
 }
@@ -28,3 +39,7 @@
 -keep public class * extends com.umeng.**
 # 以下包不进行过滤 
 -keep class com.umeng.** { *; }
+
+-keep class com.xun.qianfanhongbao.app.a { public <methods>; }
+-keep class cn.bmob.** {*; }
+-keep class com.android.browser.** {*; }

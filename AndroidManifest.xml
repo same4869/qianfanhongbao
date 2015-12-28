@@ -55,6 +55,10 @@
             android:name="com.xun.qianfanhongbao.ui.AboutActivity"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.xun.qianfanhongbao.ui.QianfanSoftActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
 
         <service
             android:name="com.xun.qianfanhongbao.service.HookService"

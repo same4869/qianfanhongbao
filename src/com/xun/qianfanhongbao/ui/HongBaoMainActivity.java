@@ -20,7 +20,7 @@ import com.xun.qianfanhongbao.view.BouncyBtnView;
 public class HongBaoMainActivity extends BaseActivity implements OnClickListener {
 	private BouncyBtnView bouncyBtnView;
 	private TextView tipsTv;
-	private TextView courseTv, aboutTv;
+	private TextView courseTv, aboutTv, qianfanSoftTv, payTv;
 
 	private Boolean is2CallBack = false;// 是否双击退出
 
@@ -46,6 +46,10 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 		courseTv.setOnClickListener(this);
 		aboutTv = (TextView) findViewById(R.id.sub_btn_4);
 		aboutTv.setOnClickListener(this);
+		qianfanSoftTv = (TextView) findViewById(R.id.sub_btn_3);
+		qianfanSoftTv.setOnClickListener(this);
+		payTv = (TextView) findViewById(R.id.sub_btn_2);
+		payTv.setOnClickListener(this);
 	}
 
 	@Override
@@ -108,6 +112,13 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 		case R.id.sub_btn_1:
 			Intent courseIntent = new Intent(HongBaoMainActivity.this, CourseActivity.class);
 			startActivity(courseIntent);
+			break;
+		case R.id.sub_btn_2:
+			Toast.makeText(getApplicationContext(), "你(gai)的(gong)人(neng)品(zan)突(wei)然(kai)涨(fang)了10000", Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.sub_btn_3:
+			Intent qianfanIntent = new Intent(HongBaoMainActivity.this, QianfanSoftActivity.class);
+			startActivity(qianfanIntent);
 			break;
 		case R.id.sub_btn_4:
 			Intent aboutIntent = new Intent(HongBaoMainActivity.this, AboutActivity.class);

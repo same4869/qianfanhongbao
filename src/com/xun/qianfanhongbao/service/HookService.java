@@ -13,11 +13,17 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+import cn.bmob.v3.listener.SaveListener;
+
+import com.xun.qianfanhongbao.bean.UserInfoBean;
+import com.xun.qianfanhongbao.util.PhoneUtil;
 
 @SuppressLint("NewApi")
 public class HookService extends AccessibilityService {
+	private boolean isNew; // 是否是新红包，避免重复统计
 
 	/**
 	 * 当通知栏改变或界面改变时会触发该方法
@@ -26,6 +32,8 @@ public class HookService extends AccessibilityService {
 	public void onAccessibilityEvent(AccessibilityEvent event) {
 		if (event == null)
 			return;
+
+		Log.d("kkkkkkkk", "event.getEventType() --> " + event.getEventType());
 
 		if (event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
 			unlockScreen();
@@ -58,6 +66,7 @@ public class HookService extends AccessibilityService {
 			} else if ("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI".equals(event.getClassName())) {
 				// 拆完红包后看详细的纪录界面
 
+				checkKey1();
 				Intent intent = new Intent();
 				intent.setAction(Intent.ACTION_MAIN);
 				intent.addCategory(Intent.CATEGORY_HOME);
@@ -73,14 +82,48 @@ public class HookService extends AccessibilityService {
 	private void checkKey1() {
 		AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
 		if (nodeInfo == null) {
-
 			return;
 		}
 		List<AccessibilityNodeInfo> list = nodeInfo.findAccessibilityNodeInfosByText("拆红包"); // 获取包含 拆红包
 																								// 文字的控件，模拟点击事件，拆开红包
 		for (AccessibilityNodeInfo n : list) {
 			n.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+			isNew = true;
 		}
+
+		List<AccessibilityNodeInfo> list2 = nodeInfo.findAccessibilityNodeInfosByText("元");
+		for (int i = list2.size() - 1; i >= 0; i--) {
+			AccessibilityNodeInfo parent = list2.get(i).getParent();
+			List<AccessibilityNodeInfo> list3 = parent.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/ayy");
+			for (int j = list3.size() - 1; j >= 0; j--) {
+				AccessibilityNodeInfo parent2 = list3.get(j);
+				if (parent2.getText() != null) {
+					// Log.d("kkkkkkkk", "parent2.getText().toString() --> " + parent2.getText().toString());
+					if (isNew) {
+						storageInfoInLocalAndRemote(parent2.getText().toString());
+					}
+					isNew = false;
+				}
+			}
+		}
+	}
+
+	// 将抢红包的信息存下来
+	private void storageInfoInLocalAndRemote(String price) {
+		UserInfoBean userInfoBean = new UserInfoBean();
+		userInfoBean.setPhoneIMEI(PhoneUtil.getPhoneIMEI(getApplicationContext()));
+		userInfoBean.setNetworkType(PhoneUtil.getPhoneNetworkType(getApplicationContext()));
+		userInfoBean.setGetPrice(price);
+		userInfoBean.save(getApplicationContext(), new SaveListener() {
+
+			@Override
+			public void onSuccess() {
+			}
+
+			@Override
+			public void onFailure(int code, String arg0) {
+			}
+		});
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
