@@ -62,7 +62,6 @@ public class HookService extends AccessibilityService {
 				checkKey1();
 			} else if ("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI".equals(event.getClassName())) {
 				// 拆完红包后看详细的纪录界面
-
 				checkKey1();
 				Intent intent = new Intent();
 				intent.setAction(Intent.ACTION_MAIN);
@@ -91,15 +90,17 @@ public class HookService extends AccessibilityService {
 		List<AccessibilityNodeInfo> list2 = nodeInfo.findAccessibilityNodeInfosByText("元");
 		for (int i = list2.size() - 1; i >= 0; i--) {
 			AccessibilityNodeInfo parent = list2.get(i).getParent();
-			List<AccessibilityNodeInfo> list3 = parent.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/ayy");
-			for (int j = list3.size() - 1; j >= 0; j--) {
-				AccessibilityNodeInfo parent2 = list3.get(j);
-				if (parent2.getText() != null) {
-					// Log.d("kkkkkkkk", "parent2.getText().toString() --> " + parent2.getText().toString());
-					if (isNew) {
-						storageInfoInLocalAndRemote(parent2.getText().toString());
+			for (int j = 0; j < parent.getChildCount(); j++) {
+				if (parent.getChild(j) != null && parent.getChild(j).getText() != null) {
+					try {
+						Double blance = Double.parseDouble(parent.getChild(j).getText().toString());
+						if (isNew) {
+							storageInfoInLocalAndRemote(String.valueOf(blance));
+						}
+						isNew = false;
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-					isNew = false;
 				}
 			}
 		}
@@ -200,7 +201,6 @@ public class HookService extends AccessibilityService {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO Auto-generated method stub
 		return super.onStartCommand(intent, START_STICKY, startId);
 	}
 }
