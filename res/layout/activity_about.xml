@@ -23,7 +23,7 @@
         android:layout_below="@id/app_name"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:text="version 1.1"
+        android:text="version 1.2"
         android:textColor="#f1e57c" />
 
     <ScrollView

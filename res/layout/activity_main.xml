@@ -74,4 +74,16 @@
             android:textColor="#df002c" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/record_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="点我查看抢红包记录"
+        android:textColor="#dddd00"
+        android:textSize="16sp" />
+
 </RelativeLayout>

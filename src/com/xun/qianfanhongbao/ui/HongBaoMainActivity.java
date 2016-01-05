@@ -21,6 +21,7 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 	private BouncyBtnView bouncyBtnView;
 	private TextView tipsTv;
 	private TextView courseTv, aboutTv, qianfanSoftTv, payTv;
+	private TextView recordTv;
 
 	private Boolean is2CallBack = false;// 是否双击退出
 
@@ -50,6 +51,8 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 		qianfanSoftTv.setOnClickListener(this);
 		payTv = (TextView) findViewById(R.id.sub_btn_2);
 		payTv.setOnClickListener(this);
+		recordTv = (TextView) findViewById(R.id.record_tv);
+		recordTv.setOnClickListener(this);
 	}
 
 	@Override
@@ -123,6 +126,10 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 		case R.id.sub_btn_4:
 			Intent aboutIntent = new Intent(HongBaoMainActivity.this, AboutActivity.class);
 			startActivity(aboutIntent);
+			break;
+		case R.id.record_tv:
+			Intent recordIntent = new Intent(HongBaoMainActivity.this, RecordListActivity.class);
+			startActivity(recordIntent);
 			break;
 		default:
 			break;
