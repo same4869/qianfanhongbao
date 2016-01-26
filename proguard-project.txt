@@ -59,3 +59,11 @@
 -keep class com.squareup.okhttp.** { *;}
 -keep interface com.squareup.okhttp.** { *; }
 -dontwarn okio.**
+
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}
+
+-dontwarn cn.sharesdk.**
+-dontwarn **.R$*

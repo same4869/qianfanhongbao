@@ -46,7 +46,7 @@
             android:layout_toRightOf="@+id/sub_btn_1"
             android:background="@drawable/subbtn_bg_selector"
             android:gravity="center"
-            android:text="打赏攒人品"
+            android:text="分享给好友"
             android:textColor="#df002c" />
 
         <TextView
@@ -83,6 +83,18 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:text="点我查看抢红包记录"
+        android:textColor="#dddd00"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/record_count_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="已为大家抢到\n0个红包"
         android:textColor="#dddd00"
         android:textSize="16sp" />
 

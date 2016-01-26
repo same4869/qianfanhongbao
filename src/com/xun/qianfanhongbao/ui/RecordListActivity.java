@@ -37,21 +37,43 @@ public class RecordListActivity extends BaseActivity {
 		recordListView.setAdapter(recordListAdapter);
 	}
 
+	int page = 0;
+	Double sum = 0.0;
+
 	private void initData(String phoneIMEI) {
 		BmobQuery<UserInfoBean> query = new BmobQuery<UserInfoBean>();
 		query.addWhereEqualTo("phoneIMEI", phoneIMEI);
 		// 返回50条数据，如果不加上这条语句，默认返回10条数据
 		query.setLimit(50);
+		// query.setSkip(1000 * page);
 		// 执行查询方法
 		query.findObjects(this, new FindListener<UserInfoBean>() {
 			@Override
 			public void onSuccess(List<UserInfoBean> object) {
 				userInfoBeans = object;
 				recordListAdapter.setData(userInfoBeans);
+
+				// Log.d("kkkkkkkk", "onSuccess userInfoBeans.size() --> " + userInfoBeans.size());
+				// if (userInfoBeans.size() < 1000) {
+				// for (int i = 0; i < userInfoBeans.size(); i++) {
+				// Double price = Double.parseDouble(userInfoBeans.get(i).getGetPrice());
+				// sum = sum + price;
+				// }
+				// Log.d("kkkkkkkk", "sum --> " + sum);
+				// } else {
+				// Log.d("kkkkkkkk", "page --> " + page);
+				// for (int i = 0; i < userInfoBeans.size(); i++) {
+				// Double price = Double.parseDouble(userInfoBeans.get(i).getGetPrice());
+				// sum = sum + price;
+				// }
+				// page++;
+				// initData(PhoneUtil.getPhoneIMEI(getApplicationContext()));
+				// }
 			}
 
 			@Override
 			public void onError(int code, String msg) {
+				// Log.d("kkkkkkkk", "msg ---> " + msg);
 			}
 		});
 	}

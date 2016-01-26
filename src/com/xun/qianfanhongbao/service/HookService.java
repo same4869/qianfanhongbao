@@ -87,6 +87,31 @@ public class HookService extends AccessibilityService {
 			isNew = true;
 		}
 
+		// 兼容新版本
+		List<AccessibilityNodeInfo> list3 = nodeInfo.findAccessibilityNodeInfosByText("给你发了一个红包");
+		for (int i = list3.size() - 1; i >= 0; i--) {
+			if (list3.get(i).getParent() != null) {
+				AccessibilityNodeInfo parent3 = list3.get(i).getParent();
+				if (parent3 != null) {
+					for (int j = 0; j < parent3.getChildCount(); j++) {
+						if (parent3.getChild(j) != null) {
+							parent3.getChild(j).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+							isNew = true;
+						}
+					}
+				}
+			}
+		}
+
+		// 为0证明红包已经被领完，没有抢到红包，这时应该HOME键到桌面方便监听下次
+		if (list.size() == 0) {
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		}
+
 		List<AccessibilityNodeInfo> list2 = nodeInfo.findAccessibilityNodeInfosByText("元");
 		for (int i = list2.size() - 1; i >= 0; i--) {
 			AccessibilityNodeInfo parent = list2.get(i).getParent();
