@@ -18,6 +18,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import cn.bmob.v3.listener.SaveListener;
 
 import com.xun.qianfanhongbao.bean.UserInfoBean;
+import com.xun.qianfanhongbao.ui.HongBaoMainActivity;
 import com.xun.qianfanhongbao.util.PhoneUtil;
 
 @SuppressLint("NewApi")
@@ -31,7 +32,7 @@ public class HookService extends AccessibilityService {
 	public void onAccessibilityEvent(AccessibilityEvent event) {
 		if (event == null)
 			return;
-
+		// Log.d("kkkkkkkk", "event.getEventType()  --> " + event.getEventType());
 		if (event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
 			unlockScreen();
 
@@ -40,7 +41,7 @@ public class HookService extends AccessibilityService {
 			for (CharSequence t : texts) {
 
 				if (t.toString().contains("[微信红包]")) {// 获取通知栏字符，若包含 [微信红包]
-														// 则模拟手指点击事件
+					// 则模拟手指点击事件
 					handleNotificationChange(event);
 					break;
 				}
@@ -56,23 +57,86 @@ public class HookService extends AccessibilityService {
 			// System.out.println("TYPE_WINDOW_STATE_CHANGED --> "+event.getClassName());
 			if ("com.tencent.mm.ui.LauncherUI".equals(event.getClassName())) {
 				// 在聊天界面,去点中红包
-				checkKey2();
+				if (HongBaoMainActivity.getValue(getApplicationContext(), HongBaoMainActivity.IS_FAST, false)) {
+
+				} else {
+					checkKey2();
+				}
 			} else if ("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI".equals(event.getClassName())) {
 				// 点中了红包，下一步就是去拆红包
 				checkKey1();
 			} else if ("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI".equals(event.getClassName())) {
 				// 拆完红包后看详细的纪录界面
-				checkKey1();
-				Intent intent = new Intent();
-				intent.setAction(Intent.ACTION_MAIN);
-				intent.addCategory(Intent.CATEGORY_HOME);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
+				if (HongBaoMainActivity.getValue(getApplicationContext(), HongBaoMainActivity.IS_FAST, false)) {
+					checkKey3();
+				} else {
+					checkKey1();
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_HOME);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+				}
 
 				// ((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(500);
 			}
 
 		}
+
+		if (event.getEventType() == AccessibilityEvent.TYPE_VIEW_SCROLLED) {
+			CharSequence currentActivityName = event.getClassName();
+			if ("android.widget.ListView".equals(currentActivityName)) {// 聊天页面滚动
+				AccessibilityNodeInfo rowNode = getRootInActiveWindow();
+				if (rowNode.getChildCount() > 0) {
+					AccessibilityNodeInfo lastNode = rowNode.getChild(rowNode.getChildCount() - 1);
+					// if (SettingHelper.getREAutoMode()) {
+					handleChatPage(lastNode);
+					// }
+				}
+			}
+		}
+	}
+
+	public void handleChatPage(AccessibilityNodeInfo node) {
+		if (node == null)
+			return;
+		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+			AccessibilityNodeInfo tempNode = getLastWechatRedEnvelopeNodeByText(node, this);
+			if (tempNode != null) {
+				tempNode.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+				tempNode.recycle();
+			}
+		}
+	}
+
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+	public static AccessibilityNodeInfo getLastWechatRedEnvelopeNodeById(AccessibilityNodeInfo info) {
+		if (info == null)// com.tencent.mm:id/uv
+			return null;
+		// TextView com.tencent.mm:id/v8 领取红包,parent:LinearLayout
+		List<AccessibilityNodeInfo> list = info.findAccessibilityNodeInfosByViewId("com.tencent.mm:id/dq");
+		for (int i = list.size() - 1; i >= 0; i--) {
+			CharSequence className = list.get(i).getClassName();
+			if ("android.widget.TextView".equals(className))
+				return list.get(i).getParent();
+		}
+		return null;
+	}
+
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	public static AccessibilityNodeInfo getLastWechatRedEnvelopeNodeByText(AccessibilityNodeInfo info, Context context) {
+		if (info == null)
+			return null;
+		List<AccessibilityNodeInfo> resultList = info.findAccessibilityNodeInfosByText("领取红包");
+		if (resultList != null && !resultList.isEmpty()) {
+			for (int i = resultList.size() - 1; i >= 0; i--) {
+				AccessibilityNodeInfo parent = resultList.get(i).getParent();
+				if (parent != null) {
+					return parent;
+				}
+			}
+		}
+		return null;
 	}
 
 	private void checkKey1() {
@@ -147,6 +211,30 @@ public class HookService extends AccessibilityService {
 			public void onFailure(int code, String arg0) {
 			}
 		});
+	}
+
+	private void checkKey3() {
+		AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
+		if (nodeInfo == null) {
+			return;
+		}
+		List<AccessibilityNodeInfo> list = nodeInfo.findAccessibilityNodeInfosByText("红包详情");
+		if (list == null) {
+			return;
+		}
+		for (int i = list.size() - 1; i >= 0; i--) {
+			if (list.get(i) != null && list.get(i).getParent() != null) {
+				AccessibilityNodeInfo parent3 = list.get(i).getParent();
+				if (parent3 != null) {
+					for (int j = 0; j < parent3.getChildCount(); j++) {
+						if (parent3.getChild(j) != null) {
+							parent3.getChild(j).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+							isNew = true;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)

@@ -2,6 +2,8 @@ package com.xun.qianfanhongbao.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -10,6 +12,9 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.bmob.v3.BmobQuery;
@@ -23,10 +28,14 @@ import com.xun.qianfanhongbao.service.HookService;
 import com.xun.qianfanhongbao.view.BouncyBtnView;
 
 public class HongBaoMainActivity extends BaseActivity implements OnClickListener {
+	public static final String SETTING = "setting";
+	public static final String IS_FAST = "is_fast";
+
 	private BouncyBtnView bouncyBtnView;
 	private TextView tipsTv;
 	private TextView courseTv, aboutTv, qianfanSoftTv, payTv;
 	private TextView recordTv, recordCountTv;
+	private CheckBox checkBox;
 
 	private Boolean is2CallBack = false;// 是否双击退出
 
@@ -59,6 +68,36 @@ public class HongBaoMainActivity extends BaseActivity implements OnClickListener
 		recordTv = (TextView) findViewById(R.id.record_tv);
 		recordTv.setOnClickListener(this);
 		recordCountTv = (TextView) findViewById(R.id.record_count_tv);
+		checkBox = (CheckBox) findViewById(R.id.checkBox);
+		if (getValue(getApplicationContext(), IS_FAST, false)) {
+			checkBox.setChecked(true);
+		} else {
+			checkBox.setChecked(false);
+		}
+		checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				putValue(getApplicationContext(), IS_FAST, isChecked);
+				if (isChecked) {
+					Toast.makeText(getApplicationContext(), "快速模式，请滞留在微信聊天界面中", Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "普通模式，请回到手机桌面", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+	}
+
+	public static boolean getValue(Context context, String key, boolean defValue) {
+		SharedPreferences sp = context.getSharedPreferences(SETTING, Context.MODE_PRIVATE);
+		boolean value = sp.getBoolean(key, defValue);
+		return value;
+	}
+
+	public static void putValue(Context context, String key, boolean value) {
+		Editor sp = context.getSharedPreferences(SETTING, Context.MODE_PRIVATE).edit();
+		sp.putBoolean(key, value);
+		sp.commit();
 	}
 
 	@Override
