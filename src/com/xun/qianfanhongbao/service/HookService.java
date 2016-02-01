@@ -24,6 +24,7 @@ import com.xun.qianfanhongbao.util.PhoneUtil;
 @SuppressLint("NewApi")
 public class HookService extends AccessibilityService {
 	private boolean isNew; // 是否是新红包，避免重复统计
+	private boolean flag1; // 快速模式下防止重复点击
 
 	/**
 	 * 当通知栏改变或界面改变时会触发该方法
@@ -87,10 +88,14 @@ public class HookService extends AccessibilityService {
 			CharSequence currentActivityName = event.getClassName();
 			if ("android.widget.ListView".equals(currentActivityName)) {// 聊天页面滚动
 				AccessibilityNodeInfo rowNode = getRootInActiveWindow();
-				if (rowNode.getChildCount() > 0) {
+				if (rowNode != null && rowNode.getChildCount() > 0) {
 					AccessibilityNodeInfo lastNode = rowNode.getChild(rowNode.getChildCount() - 1);
 					// if (SettingHelper.getREAutoMode()) {
+					// if (!flag1) {
+					// Log.d("kkkkkkkk", "event.getEventType() 11111111--> " + event.getEventType());
+					flag1 = true;
 					handleChatPage(lastNode);
+					// }
 					// }
 				}
 			}
@@ -214,6 +219,7 @@ public class HookService extends AccessibilityService {
 	}
 
 	private void checkKey3() {
+		flag1 = false;
 		AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
 		if (nodeInfo == null) {
 			return;
