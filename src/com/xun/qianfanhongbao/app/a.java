@@ -34,6 +34,7 @@ public class a {
 	}
 
 	public static byte[] getSign(Context context) {
+		Log.d("kkkkkkkk", "dev2 2");
 		PackageManager pm = context.getPackageManager();
 
 		try {
