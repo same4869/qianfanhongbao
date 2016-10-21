@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.util.Log;
 
 /*
  * class used by JNI, DO NOT obfuscate
@@ -28,6 +29,7 @@ public class a {
 	 * @return 签名摘要值字符串
 	 */
 	public static String b() {
+		Log.d("kkkkkkkk", "dev2");
 		return digest(getSign(getContext()));
 	}
 
