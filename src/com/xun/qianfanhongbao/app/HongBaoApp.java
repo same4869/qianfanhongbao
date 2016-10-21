@@ -31,7 +31,7 @@ public class HongBaoApp extends Application {
 	@SuppressLint("DefaultLocale")
 	private boolean checkSignature() {
 		byte[] sig = a.getSign(this);
-
+		Log.d("kkkkkkkk", "dev1 2");
 		String hash = a.digest(sig, "MD5").toUpperCase();
 
 		if (hash.equals("AAA224F4C8A3567941A6F4ACAE0B2C93") || hash.equals("03A80264EC83F16F6AB52461C83B1AA7")
