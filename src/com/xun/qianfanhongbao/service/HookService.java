@@ -157,7 +157,7 @@ public class HookService extends AccessibilityService {
 		}
 
 		// 兼容新版本
-		List<AccessibilityNodeInfo> list3 = nodeInfo.findAccessibilityNodeInfosByText("给你发了一个红包");
+		List<AccessibilityNodeInfo> list3 = nodeInfo.findAccessibilityNodeInfosByText("发了一个红包");
 		for (int i = list3.size() - 1; i >= 0; i--) {
 			if (list3.get(i).getParent() != null) {
 				AccessibilityNodeInfo parent3 = list3.get(i).getParent();
